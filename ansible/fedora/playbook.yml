@@ -1,0 +1,14 @@
+- name: Setup Development Environment
+  hosts: localhost
+  become: true
+  tasks:
+    - name: Install zsh
+      ansible.builtin.dnf:
+        name: zsh
+      tags:
+        - zsh
+    - name: Install GNU stow
+      ansible.builtin.dnf:
+        name: stow
+      tags:
+        - stow
