@@ -1,0 +1,8 @@
+{
+    "Lua.codeLens.enable": true,
+    "Lua.workspace.checkThirdParty": true,
+    "Lua.diagnostics.globals": ["hs"],
+    "Lua.workspace.library": [
+        "${workspaceFolder}/Spoons/EmmyLua.spoon/annotations",
+    ],
+}
