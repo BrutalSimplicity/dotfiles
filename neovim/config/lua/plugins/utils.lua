@@ -4,6 +4,7 @@ local function get_cwd_as_name()
   return dir:gsub("[^A-za-z0-9]", "_")
 end
 return {
+  -- Persistence(LazyVim): Session Manager
   {
     "persistence.nvim",
     opts = {
@@ -12,6 +13,8 @@ return {
       end,
     },
   },
+
+  -- Supplies .gitignore templates
   {
     "wintermute-cell/gitignore.nvim",
     keys = {

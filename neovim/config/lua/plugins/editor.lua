@@ -1,4 +1,5 @@
 return {
+  -- Neotree(LazyVim): file explorer
   {
     "nvim-neo-tree/neo-tree.nvim",
     keys = {
@@ -10,6 +11,8 @@ return {
       },
     },
   },
+
+  -- Mini.Files(LazyVim): vim-like file manpulation
   {
     "echasnovski/mini.files",
     opts = {
@@ -54,7 +57,7 @@ return {
     end,
   },
 
-  -- flash - Easy Motions
+  -- flash(LazyVim): Easy Motions
   {
     "folke/flash.nvim",
     opts = {
@@ -74,58 +77,6 @@ return {
     },
   },
 
-  {
-    "persistence.nvim",
-    opts = {
-      pre_save = function()
-        vim.api.nvim_exec_autocmds("User", { pattern = "SessionSavePre" })
-      end,
-    },
-  },
-
-  -- Neogit - a Magit (emacs) clone {{{
-  -- An integrated Git workflow plugin
-  {
-    "NeogitOrg/neogit",
-    dependencies = {
-      "sindrets/diffview.nvim",
-      "plenary.nvim",
-      "telescope.nvim",
-    },
-    config = true,
-    keys = {
-      {
-        "<leader>gg",
-        function()
-          require("neogit").open()
-        end,
-        desc = "Open Neogit",
-      },
-      {
-        "<leader>gC",
-        function()
-          require("neogit").open({ "commit" })
-        end,
-        desc = "Neogit Commit",
-      },
-    },
-  },
-
-  {
-    "mg979/vim-visual-multi",
-  },
-  {
-    "yanky.nvim",
-    keys = {
-      {
-        "<leader>yh",
-        function()
-          require("telescope").extensions.yank_history.yank_history({})
-        end,
-        desc = "Open Yank History",
-      },
-    },
-  },
   {
     "ThePrimeagen/harpoon",
     branch = "harpoon2",
@@ -170,5 +121,49 @@ return {
       end
       return keys
     end,
+  },
+
+  -- Neogit: An integrated Git workflow plugin
+  {
+    "NeogitOrg/neogit",
+    dependencies = {
+      "sindrets/diffview.nvim",
+      "plenary.nvim",
+      "telescope.nvim",
+    },
+    config = true,
+    keys = {
+      {
+        "<leader>gg",
+        function()
+          require("neogit").open()
+        end,
+        desc = "Open Neogit",
+      },
+      {
+        "<leader>gC",
+        function()
+          require("neogit").open({ "commit" })
+        end,
+        desc = "Neogit Commit",
+      },
+    },
+  },
+
+  -- Multi-cursor plugin (best I've been able to find)
+  {
+    "mg979/vim-visual-multi",
+  },
+  {
+    "yanky.nvim",
+    keys = {
+      {
+        "<leader>yh",
+        function()
+          require("telescope").extensions.yank_history.yank_history({})
+        end,
+        desc = "Open Yank History",
+      },
+    },
   },
 }
