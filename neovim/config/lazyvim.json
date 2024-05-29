@@ -1,7 +1,8 @@
 {
   "extras": [
     "lazyvim.plugins.extras.coding.yanky",
-    "lazyvim.plugins.extras.editor.mini-files"
+    "lazyvim.plugins.extras.editor.mini-files",
+    "lazyvim.plugins.extras.ui.mini-indentscope"
   ],
   "news": {
     "NEWS.md": "4964"
