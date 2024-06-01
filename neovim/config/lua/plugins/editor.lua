@@ -1,3 +1,5 @@
+local Util = require("user.util")
+
 return {
   -- Neotree(LazyVim): file explorer
   {
@@ -165,5 +167,33 @@ return {
         desc = "Open Yank History",
       },
     },
+  },
+
+  -- Dial: Increment/Decrement symbols
+  {
+    "dial.nvim",
+    keys = function(_, keys)
+      -- Remap increment/decrement to Meta (alt/option) to avoid tmux
+      -- prefix-key (ctrl-a) conflict
+      Util.remap_lazy_key("<C-a>", "<M-a>", keys)
+      Util.remap_lazy_key("<C-x>", "<M-x>", keys)
+      Util.remap_lazy_key("g<C-a>", "g<M-a>", keys)
+      Util.remap_lazy_key("g<C-x>", "g<M-x>", keys)
+    end,
+    opts = function(_, opts)
+      local augend = require("dial.augend")
+      opts.groups.python[#opts.groups.python + 1] = augend.constant.new({
+        elements = { "and", "or" },
+        word = true,
+        cyclic = true,
+      })
+      opts.groups.toml = {
+        augend.integer.alias.decimal,
+        augend.semver.alias.semver,
+      }
+      opts.dials_by_ft = {
+        toml = "toml",
+      }
+    end,
   },
 }

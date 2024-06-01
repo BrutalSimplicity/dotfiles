@@ -15,11 +15,6 @@ return {
         "<cmd>BufferLinePickClose<cr>",
         desc = "Select Buffer to Close",
       },
-      {
-        "<leader>;",
-        "<C-6>",
-        desc = "Toggle Alternate Buffer",
-      },
     },
   },
   -- lualine(LazyVim): Replace standard status line
