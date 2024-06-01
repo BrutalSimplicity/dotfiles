@@ -84,6 +84,17 @@ local keymaps = {
   -- Selection operations
   { "<leader>Y", ":%y<CR>", desc = "Copy All" },
 
+  -- Window operations
+  {
+    "<leader>ww",
+    function()
+      local m = require("user.hydra.winctrl")
+      m.setup()
+      m.hydra:activate()
+    end,
+    desc = "Window Control",
+  },
+
   -- Settings
   {
     "<leader>uy",

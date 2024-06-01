@@ -1,8 +1,3 @@
-local M = {
-  ---@type Hydra
-  hydra = nil,
-}
-
 function M.close()
   if M.hydra ~= nil then
     M.hydra:exit()
@@ -11,7 +6,10 @@ function M.close()
 end
 
 function M.setup()
-  -- Window Control Hydra {{{
+  if M.hydra ~= nil then
+    return
+  end
+
   local hint = [[
  󰭩 Windows
 
@@ -23,7 +21,6 @@ function M.setup()
   local opts = {
     name = "Window Control",
     hint = hint,
-    body = "<leader>ww",
     config = {
       color = "amaranth",
       hint = {
