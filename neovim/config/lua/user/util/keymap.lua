@@ -42,7 +42,7 @@ M.DEL = {}
 
 -- Process keymap spec the same way lazy.nvim does (I think)
 ---@param spec user.util.KeymapSpec
-function M.process_keymap_spec(spec)
+function M.process_spec(spec)
   for _, mapping in ipairs(spec) do
     -- handle keyword and position arguments separately
     local kwd_args = {}

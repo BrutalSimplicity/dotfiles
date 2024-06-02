@@ -1,4 +1,4 @@
-local Util = require("user.util")
+local Keymap = require("user.util.keymap")
 
 return {
   -- Neotree(LazyVim): file explorer
@@ -175,10 +175,10 @@ return {
     keys = function(_, keys)
       -- Remap increment/decrement to Meta (alt/option) to avoid tmux
       -- prefix-key (ctrl-a) conflict
-      Util.remap_lazy_key("<C-a>", "<M-a>", keys)
-      Util.remap_lazy_key("<C-x>", "<M-x>", keys)
-      Util.remap_lazy_key("g<C-a>", "g<M-a>", keys)
-      Util.remap_lazy_key("g<C-x>", "g<M-x>", keys)
+      Keymap.remap_lazy_key("<C-a>", "<M-a>", keys)
+      Keymap.remap_lazy_key("<C-x>", "<M-x>", keys)
+      Keymap.remap_lazy_key("g<C-a>", "g<M-a>", keys)
+      Keymap.remap_lazy_key("g<C-x>", "g<M-x>", keys)
     end,
     opts = function(_, opts)
       local augend = require("dial.augend")

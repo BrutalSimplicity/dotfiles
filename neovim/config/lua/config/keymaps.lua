@@ -2,7 +2,7 @@
 -- Default keymaps that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/keymaps.lua
 -- Add any additional keymaps here
 local LazyVim = require("lazyvim.util")
-local Util = require("user.util")
+local Keymap = require("user.util.keymap")
 
 ---@type user.util.KeymapSpec
 local keymaps = {
@@ -42,7 +42,7 @@ local keymaps = {
 
   -- Lazy operations
   -- Remap lazy.nvim console
-  { "<leader>l", Util.DEL },
+  { "<leader>l", Keymap.DEL },
   { "<leader>ll", "<cmd>Lazy<cr>", desc = "Lazy" },
   { "<leader>lx", "<cmd>LazyExtras<cr>", desc = "LazyVim Extras" },
 
@@ -56,7 +56,7 @@ local keymaps = {
     desc = "Delete Buffer",
   },
   -- Remap alternate buffer
-  { "<leader>`", Util.DEL },
+  { "<leader>`", Keymap.DEL },
   {
     "n",
     "<leader>;",
@@ -106,4 +106,4 @@ local keymaps = {
   },
 }
 
-Util.process_keymap_spec(keymaps)
+Keymap.process_spec(keymaps)
