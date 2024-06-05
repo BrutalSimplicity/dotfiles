@@ -8,6 +8,9 @@ return {
         ["<C-j>"] = cmp.mapping.select_next_item(),
         ["<C-k>"] = cmp.mapping.select_prev_item(),
       })
+      cmp.setup.filetype({ "sql", "mysql", "plsql" }, {
+        sources = { { name = "vim-dadbod-completion" } },
+      })
       return opts
     end,
   },
