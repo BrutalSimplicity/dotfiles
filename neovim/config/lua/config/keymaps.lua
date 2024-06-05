@@ -88,11 +88,22 @@ local keymaps = {
   {
     "<leader>ww",
     function()
-      local m = require("user.hydra.winctrl")
+      local m = require("user.hydra.windows")
       m.setup()
       m.hydra:activate()
     end,
     desc = "Window Control",
+  },
+
+  -- Debugging operations
+  {
+    "<leader>dd",
+    function()
+      local m = require("user.hydra.debug")
+      m.setup()
+      m.hydra:activate()
+    end,
+    desc = "Debug Control",
   },
 
   -- Settings
@@ -100,7 +111,7 @@ local keymaps = {
     "<leader>uy",
     function()
       vim.o.clipboard = vim.o.clipboard == "unnamedplus" and "" or "unnamedplus"
-      vim.notify(string.format("Clipboard: %s", vim.o.clipboard))
+      vim.notify(string.format("using %s clipboard", vim.o.clipboard ~= "" and "os" or "nvim"))
     end,
     desc = "Toggle OS Clipboard",
   },
