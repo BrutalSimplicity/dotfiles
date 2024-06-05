@@ -4,11 +4,14 @@
     "lazyvim.plugins.extras.coding.yanky",
     "lazyvim.plugins.extras.dap.core",
     "lazyvim.plugins.extras.editor.dial",
+    "lazyvim.plugins.extras.editor.harpoon2",
     "lazyvim.plugins.extras.editor.mini-files",
+    "lazyvim.plugins.extras.lang.markdown",
+    "lazyvim.plugins.extras.lang.typescript",
     "lazyvim.plugins.extras.ui.mini-indentscope"
   ],
   "news": {
-    "NEWS.md": "4964"
+    "NEWS.md": "5204"
   },
   "version": 6
 }

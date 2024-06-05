@@ -160,7 +160,7 @@ return {
     "yanky.nvim",
     keys = {
       {
-        "<leader>yh",
+        "<leader>p",
         function()
           require("telescope").extensions.yank_history.yank_history({})
         end,
