@@ -4,31 +4,43 @@ return {
     keys = {
       {
         "<leader>lc",
-        require("lazyvim.util").telescope("find_files", {
+        require("lazyvim.util").pick("find_files", {
           cwd = vim.fn.stdpath("data") .. "/lazy/LazyVim",
         }),
         desc = "LazyVim Configuration (Find Files)",
       },
       {
         "<leader>lC",
-        require("lazyvim.util").telescope("live_grep", {
+        require("lazyvim.util").pick("live_grep", {
           cwd = vim.fn.stdpath("data") .. "/lazy/LazyVim",
         }),
         desc = "LazyVim Configuration (Grep)",
       },
       {
         "<leader>lp",
-        require("lazyvim.util").telescope("find_files", {
+        require("lazyvim.util").pick("find_files", {
           cwd = vim.fn.stdpath("data") .. "/lazy",
         }),
         desc = "LazyVim Plugins (Find Files)",
       },
       {
+        "<leader>,",
+        require("lazyvim.util").pick("buffers", {
+          ignore_current_buffer = true,
+        }),
+        desc = "Find Buffers",
+      },
+      {
+        "<leader>fb",
+        require("lazyvim.util").pick("buffers", {
+          ignore_current_buffer = true,
+        }),
+        desc = "Find Buffers",
+      },
+      {
         "<leader>fd",
         function()
-          require("telescope.builtin").find_files({
-            cwd = vim.fs.dirname(vim.api.nvim_buf_get_name(0)),
-          })
+          require("telescope.builtin").find_files({ cwd = vim.fs.dirname(vim.api.nvim_buf_get_name(0)) })
         end,
         desc = "Find Files (Buffer Dir)",
       },
