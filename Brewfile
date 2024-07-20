@@ -21,6 +21,7 @@ brew "cue"  # Constraint-based Configuration Language
 brew "bash"
 brew "node"
 brew "openjdk"
+brew "rust"
 
 #### LANGUAGE TOOLS/SERVICES ####
 brew "pipx" # Python application manager
@@ -30,6 +31,7 @@ brew "plantuml"
 brew "shfmt"
 brew "markdownlint-cli"
 brew "marksman"
+brew "rust-analyzer"
 
 
 #### DEV TOOLS ####
