@@ -32,9 +32,11 @@ return {
       },
       {
         "<leader>fb",
-        require("lazyvim.util").pick("buffers", {
-          ignore_current_buffer = true,
-        }),
+        function()
+          require("telescope.builtin").buffers({
+            ignore_current_buffer = true,
+          })
+        end,
         desc = "Find Buffers",
       },
       {
