@@ -1,5 +1,24 @@
 local Keymap = require("user.util.keymap")
 
+local function yank_icon(bufnr)
+  local entry = require("telescope.actions.state").get_selected_entry()
+
+  if not entry then
+    vim.notify("yank_selection", {
+      msg = "Nothing currently selected",
+      level = "WARN",
+    })
+    return
+  end
+
+  local split = vim.split(entry.value, " ")
+
+  vim.schedule(function()
+    vim.cmd("let @\"='" .. split[1] .. "'")
+  end)
+  require("telescope.actions").close(bufnr)
+end
+
 return {
   -- Neotree(LazyVim): file explorer
   {
@@ -12,6 +31,14 @@ return {
         end,
       },
     },
+  },
+  {
+    "echasnovski/mini.align",
+    event = "VeryLazy",
+    version = "*",
+    config = function(_, opts)
+      require("mini.align").setup(opts)
+    end,
   },
 
   -- Mini.Files(LazyVim): vim-like file manpulation
@@ -81,18 +108,6 @@ return {
 
   {
     "ThePrimeagen/harpoon",
-    branch = "harpoon2",
-    dependencies = {
-      { "nvim-lua/plenary.nvim" },
-    },
-    opts = {
-      menu = {
-        width = vim.api.nvim_win_get_width(0) - 4,
-      },
-      settings = {
-        save_on_toggle = true,
-      },
-    },
     keys = function()
       local keys = {
         {
@@ -110,9 +125,17 @@ return {
           end,
           desc = "Harpoon Quick Menu",
         },
+        {
+          "<leader>yh",
+          function()
+            local harpoon = require("harpoon")
+            harpoon.ui:toggle_quick_menu(harpoon:list("yeet"))
+          end,
+          desc = "Harpoon Yeet Menu",
+        },
       }
 
-      for i = 1, 5 do
+      for i = 1, 4 do
         table.insert(keys, {
           "<leader>" .. i,
           function()
@@ -121,7 +144,29 @@ return {
           desc = "Harpoon to File " .. i,
         })
       end
+      for i = 1, 4 do
+        table.insert(keys, {
+          string.format("<leader><F%s>", i),
+          function()
+            require("harpoon"):list("yeet"):select(i - 5)
+          end,
+          desc = "Yeet command " .. i,
+        })
+      end
+
       return keys
+    end,
+    config = function(_, opts)
+      local h = require("harpoon")
+      h:setup(vim.tbl_extend("force", opts, {
+        yeet = {
+          select = function(i, _, _)
+            local yeet = require("yeet")
+            yeet._cmd = i.value
+            require("yeet").execute(i.value)
+          end,
+        },
+      }))
     end,
   },
 
@@ -195,5 +240,72 @@ return {
         toml = "toml",
       }
     end,
+  },
+
+  {
+    "ziontee113/icon-picker.nvim",
+    dependencies = {
+      {
+        "dressing.nvim",
+        opts = {
+          select = {
+            get_config = function(opts)
+              if opts.kind == "icon_picker" then
+                return {
+                  telescope = {
+                    attach_mappings = function(_, map)
+                      map({ "i", "n" }, "<c-y>", yank_icon)
+                      return true
+                    end,
+                  },
+                  -- telescope = {
+                  --   defaults = {
+                  --     mappings = {
+                  --       n = {
+                  --         ["y"] = yank_selection,
+                  --       },
+                  --     },
+                  --   },
+                  -- },
+                }
+              end
+            end,
+          },
+        },
+      },
+    },
+    cmd = {
+      "IconPickerNormal",
+    },
+    keys = {
+      {
+        "<leader>fi",
+        "<cmd>IconPickerNormal<cr>",
+        desc = "Find Icon",
+      },
+    },
+    config = function(_, opts)
+      require("icon-picker").setup(opts or {})
+    end,
+  },
+  {
+    "mizlan/iswap.nvim",
+    dependencies = {
+      {
+        "which-key.nvim",
+        opts = {
+          spec = {
+            { "<leader>ci", name = "+iswap", group = "iswap" },
+          },
+        },
+      },
+    },
+    event = "VeryLazy",
+    keys = {
+      { "<leader>ciw", "<cmd>ISwapWith<cr>", desc = "Swap With" },
+      { "<leader>cil", "<cmd>ISwapWithLeft<cr>", desc = "Swap With Left" },
+      { "<leader>cir", "<cmd>ISwapWithRight<cr>", desc = "Swap With Right" },
+      { "<leader>cim", "<cmd>IMoveWith<cr>", desc = "Move With" },
+    },
   },
 }
