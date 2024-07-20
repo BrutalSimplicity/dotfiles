@@ -84,6 +84,7 @@ function M.asRGB(color, ...) end
 --  * Where possible, each color node is provided as its RGB color representation.  Where this is not possible, the color node contains the keys `list` and `name` which identify the indicated color.  This means that you can use the following wherever a color parameter is expected: `hs.drawing.color.colorsFor(list)["color-name"]`
 --  * This function provides a tostring metatable method which allows listing the defined colors in the list in the Hammerspoon console with: `hs.drawing.colorsFor(list)`
 --  * See also `hs.drawing.color.lists`
+---@return table
 function M.colorsFor(list, ...) end
 -- This table contains this list of defined color collections provided by the `hs.drawing.color` module.  Collections differ from the system color lists in that you can modify the color values their members contain by modifying the table at `hs.drawing.color.<collection>.<color>` and future references to that color will reflect the new changes, thus allowing you to customize the palettes for your installation.
 --
@@ -118,6 +119,5 @@ function M.lists() end
 -- Notes:
 --  * This is not a constant, so you can adjust the colors at run time for your installation if desired.
 M.x11 = nil
-
 
 return M

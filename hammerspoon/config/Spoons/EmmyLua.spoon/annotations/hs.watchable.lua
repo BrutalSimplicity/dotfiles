@@ -50,6 +50,7 @@ function M:change(key, value, ...) end
 --  * All key-value pairs stored within this table are potentially watchable by external code -- if you wish to keep some data private, do not store it in this table.
 --  * `externalChanges` will apply to *all* keys within this table -- if you wish to only allow some keys to be externally modifiable, you will need to register separate paths.
 --  * If external changes are enabled, you will need to register your own watcher with [hs.watchable.watch](#watch) if action is required when external changes occur.
+---@return any
 function M.new(path, externalChanges, ...) end
 -- Temporarily stop notifications about the key-value pair(s) watched by this watchableObject.
 --
@@ -106,6 +107,5 @@ function M:value(key, ...) end
 --  * If the key (specified as a separate argument or as the final component of path) is "*", then all key-value pair changes that occur for the table specified by the path will invoke a callback.  This is a shortcut for watching an entire table, rather than just a specific key-value pair of the table.
 --  * It is possible to register a watcher for a path that has not been registered with [hs.watchable.new](#new) yet. Retrieving the current value with [hs.watchable:value](#value) in such a case will return nil.
 function M.watch(path, key, callback, ...) end
-
 
 return M

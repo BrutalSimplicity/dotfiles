@@ -5,46 +5,46 @@
 ---@diagnostic disable: unused-local
 ---@class hs.canvas.color.RGB
 --- Combination of red, green, blue elements (RGB Color), and an alpha for opacity
----@field red number
 -- red component of color, specified as number from 0.0 to 1.0
----@field green number
+---@field red number
 -- green component of color, specified as number from 0.0 to 1.0
----@field blue number
+---@field green number
 -- blue component of color, specified as number from 0.0 to 1.0
----@field alpha number
+---@field blue number
 -- the color transparency from 0.0 (comopletely transparent) to 1.0 (completely opaque)
+---@field alpha number
 
 ---@class hs.canvas.color.HSB
----@field hue number
 -- hue component of color, specified as number from 0.0 to 1.0
----@field saturation number
+---@field hue number
 -- saturation component of color, specified as number from 0.0 to 1.0
----@field brightness number
+---@field saturation number
 -- brightness component of color, specified as number from 0.0 to 1.0
----@field alpha number
+---@field brightness number
 -- the color transparency from 0.0 (comopletely transparent) to 1.0 (completely opaque)
+---@field alpha number
 
 ---@class hs.canvas.color.Grayscale
----@field white number
 -- the ratio of white to black from 0.0 (completely black) to 1.0 (completely white)
----@field alpha number
+---@field white number
 -- the color transparency from 0.0 (comopletely transparent) to 1.0 (completely opaque)
+---@field alpha number
 
 ---@class hs.canvas.color.System
----@field list string[]
 -- the name of a system color list or acollection list defined in `hs.drawing.color`
----@field name string
+---@field list string[]
 -- the color name within the specified color list
+---@field name string
 
 ---@class hs.canvas.color.Hex
----@field hex string
 -- a string of the format `#rrggbb` or `#rgb` where r, g, and b are hexadecimal digits (i.e. 0-9, A-F)
----@field alpha number
+---@field hex string
 -- the color transparency from 0.0 (comopletely transparent) to 1.0 (completely opaque)
+---@field alpha number
 
 ---@class hs.canvas.color.Image
----@field image hs.image
 -- an `hs.image` object representing the image to be used as a tiled pattern
+---@field image hs.image
 
 ---@alias hs.canvas.color.Color hs.canvas.color.RGB | hs.canvas.color.System | hs.canvas.color.HSB | hs.canvas.color.Image | hs.canvas.color.Grayscale | hs.canvas.color.Hex
 
@@ -156,44 +156,68 @@
 --     * `none`                - perform no scaling or resizing of the image.
 --     * `scaleProportionally` - shrink or expand the image to fully fill the drawing frame, preserving the aspect ration.
 ---@field miterLimit? number
---   * `miterLimit`          - Default `10.0`. The limit at which miter joins are converted to bevel join when `strokeJoinStyle` is `miter`.  The miter limit helps you avoid spikes at the junction of two line segments.  When the ratio of the miter length—the diagonal length of the miter join—to the line thickness exceeds the miter limit, the joint is converted to a bevel join. Ignored for the `canvas`, `text`, and `image` types.
---   * `padding`             - Default `0.0`. When an element specifies position information by percentage (i.e. as a string), the actual frame used for calculating position values is inset from the canvas frame on all sides by this amount. If you are using shadows with your elements, the shadow position is not included in the element's size and position specification; this attribute can be used to provide extra space for the shadow to be fully rendered within the canvas.
---   * `radius`              - Default "50%". Used by the `arc` and `circle` types to specify the radius of the circle for the element. May be specified as a string or a number.  When specified as a string, the value is treated as a percentage of the canvas size.  See the section on [percentages](#percentages) for more information.
---   * `reversePath`         - Default `false`.  Specifies drawing direction for the canvas element.  By default, canvas elements are drawn from the point nearest the origin (top left corner) in a clockwise direction.  Setting this to true causes the element to be drawn in a counter-clockwise direction. This will mostly affect fill and stroke dash patterns, but can also be used with clipping regions to create cut-outs.  Ignored for `canvas`, `image`, and `text` types.
---   * `roundedRectRadii`    - Default `{ xRadius = 0.0, yRadius = 0.0 }`.
---   * `shadow`              - Default `{ blurRadius = 5.0, color = { alpha = 1/3 }, offset = { h = -5.0, w = 5.0 } }`.  Specifies the shadow blurring, color, and offset to be added to an element which has `withShadow` set to true.
---   * `startAngle`          - Default `0.0`. Used by the `arc` and `ellipticalArc` to specify the starting angle position for the inscribed arc.
---   * `strokeCapStyle`      - Default "butt". A string which specifies the shape of the endpoints of an open path when stroked.  Primarily noticeable for lines rendered with the `segments` type.  Valid values for this attribute are "butt", "round", and "square".
---   * `strokeColor`         - Default `{ white = 0 }`.  Specifies the stroke (outline) color for a canvas element when the action is set to `stroke` or `strokeAndFill`.  Ignored for the `canvas`, `text`, and `image` types.
---   * `strokeDashPattern`   - Default `{}`.  Specifies an array of numbers specifying a dash pattern for stroked lines when an element's `action` attribute is set to `stroke` or `strokeAndFill`.  The numbers in the array alternate with the first element specifying a dash length in points, the second specifying a gap length in points, the third a dash length, etc.  The array repeats to fully stroke the element.  Ignored for the `canvas`, `image`, and `text` types.
---   * `strokeDashPhase`     - Default `0.0`.  Specifies an offset, in points, where the dash pattern specified by `strokeDashPattern` should start. Ignored for the `canvas`, `image`, and `text` types.
---   * `strokeJoinStyle`     - Default "miter".  A string which specifies the shape of the joints between connected segments of a stroked path.  Valid values for this attribute are "miter", "round", and "bevel".  Ignored for element types of `canvas`, `image`, and `text`.
---   * `strokeWidth`         - Default `1.0`.  Specifies the width of stroked lines when an element's action is set to `stroke` or `strokeAndFill`.  Ignored for the `canvas`, `image`, and `text` element types.
---   * `text`                - Default `""`.  Specifies the text to display for a `text` element.  This may be specified as a string, or as an `hs.styledtext` object.
---   * `textAlignment`       - Default `natural`. A string specifying the alignment of the text within a canvas element of type `text`.  This field is ignored if the text is specified as an `hs.styledtext` object.  Valid values for this attributes are:
+-- Default `0.0`. When an element specifies position information by percentage (i.e. as a string), the actual frame used for calculating position values is inset from the canvas frame on all sides by this amount. If you are using shadows with your elements, the shadow position is not included in the element's size and position specification; this attribute can be used to provide extra space for the shadow to be fully rendered within the canvas.
+---@field padding? number
+-- Default "50%". Used by the `arc` and `circle` types to specify the radius of the circle for the element. May be specified as a string or a number.  When specified as a string, the value is treated as a percentage of the canvas size.  See the section on [percentages](#percentages) for more information.
+---@field radius? number
+-- false`.  Specifies drawing direction for the canvas element.  By default, canvas elements are drawn from the point nearest the origin (top left corner) in a clockwise direction.  Setting this to true causes the element to be drawn in a counter-clockwise direction. This will mostly affect fill and stroke dash patterns, but can also be used with clipping regions to create cut-outs.  Ignored for `canvas`, `image`, and `text` types.
+---@field reversePath? boolean
+---@field roundedRectRadii? { xRadius: number, yRadius: number }
+-- Default `{ blurRadius = 5.0, color = { alpha = 1/3 }, offset = { h = -5.0, w = 5.0 } }`.  Specifies the shadow blurring, color, and offset to be added to an element which has `withShadow` set to true.
+---@field shadow? {blurRadius: number, color: hs.canvas.color.Color, offset: { h: number, w: number } }
+-- Default `0.0`. Used by the `arc` and `ellipticalArc` to specify the starting angle position for the inscribed arc.
+---@field startAngle? number
+-- Default "butt". A string which specifies the shape of the endpoints of an open path when stroked.  Primarily noticeable for lines rendered with the `segments` type.  Valid values for this attribute are "butt", "round", and "square".
+---@field strokeCapStyle? string
+-- Default `{ white = 0 }`.  Specifies the stroke (outline) color for a canvas element when the action is set to `stroke` or `strokeAndFill`.  Ignored for the `canvas`, `text`, and `image` types.
+---@field strokeColor? hs.canvas.color.Color
+-- Default `{}`.  Specifies an array of numbers specifying a dash pattern for stroked lines when an element's `action` attribute is set to `stroke` or `strokeAndFill`.  The numbers in the array alternate with the first element specifying a dash length in points, the second specifying a gap length in points, the third a dash length, etc.  The array repeats to fully stroke the element.  Ignored for the `canvas`, `image`, and `text` types.
+---@field strokeDashPattern? number[]
+-- Default `0.0`.  Specifies an offset, in points, where the dash pattern specified by `strokeDashPattern` should start. Ignored for the `canvas`, `image`, and `text` types.
+---@field strokeDashPhase? number
+-- Default "miter".  A string which specifies the shape of the joints between connected segments of a stroked path.  Valid values for this attribute are "miter", "round", and "bevel".  Ignored for element types of `canvas`, `image`, and `text`.
+---@field strokeJoinStyle? "miter"|"round"|"bevel"
+-- Default `1.0`.  Specifies the width of stroked lines when an element's action is set to `stroke` or `strokeAndFill`.  Ignored for the `canvas`, `image`, and `text` element types.
+---@field strokeWidth? number
+-- Default `""`.  Specifies the text to display for a `text` element.  This may be specified as a string, or as an `hs.styledtext` object.
+---@field text? string|hs.styledtext
+-- Default `natural`. A string specifying the alignment of the text within a canvas element of type `text`.  This field is ignored if the text is specified as an `hs.styledtext` object.  Valid values for this attributes are:
 --     * `left`      - the text is visually left aligned.
 --     * `right`     - the text is visually right aligned.
 --     * `center`    - the text is visually center aligned.
 --     * `justified` - the text is justified
 --     * `natural`   - the natural alignment of the text’s script
---   * `textColor`           - Default `{ white = 1.0 }`.  Specifies the color to use when displaying the `text` element type, if the text is specified as a string.  This field is ignored if the text is specified as an `hs.styledtext` object.
---   * `textFont`            - Defaults to the default system font.  A string specifying the name of the font to use when displaying the `text` element type, if the text is specified as a string.  This field is ignored if the text is specified as an `hs.styledtext` object.
---   * `textLineBreak`       - Default `wordWrap`. A string specifying how to wrap text which exceeds the canvas element's frame for an element of type `text`.  This field is ignored if the text is specified as an `hs.styledtext` object.  Valid values for this attribute are:
+---@field textAlignment? "left"|"right"|"center"|"justified"|"natural"
+-- Default `{ white = 1.0 }`.  Specifies the color to use when displaying the `text` element type, if the text is specified as a string.  This field is ignored if the text is specified as an `hs.styledtext` object.
+---@field textColor? hs.canvas.color.Color
+-- Defaults to the default system font.  A string specifying the name of the font to use when displaying the `text` element type, if the text is specified as a string.  This field is ignored if the text is specified as an `hs.styledtext` object.
+---@field textFont? string
+-- Default `wordWrap`. A string specifying how to wrap text which exceeds the canvas element's frame for an element of type `text`.  This field is ignored if the text is specified as an `hs.styledtext` object.  Valid values for this attribute are:
 --     * `wordWrap`       - wrap at word boundaries, unless the word itself doesn’t fit on a single line
 --     * `charWrap`       - wrap before the first character that doesn’t fit
 --     * `clip`           - do not draw past the edge of the drawing object frame
 --     * `truncateHead`   - the line is displayed so that the end fits in the frame and the missing text at the beginning of the line is indicated by an ellipsis
 --     * `truncateTail`   - the line is displayed so that the beginning fits in the frame and the missing text at the end of the line is indicated by an ellipsis
 --     * `truncateMiddle` - the line is displayed so that the beginning and end fit in the frame and the missing text in the middle is indicated by an ellipsis
---   * `textSize`            - Default `27.0`.  Specifies the font size to use when displaying the `text` element type, if the text is specified as a string.  This field is ignored if the text is specified as an `hs.styledtext` object.
---   * `trackMouseByBounds`  - Default `false`. If true, mouse events are based on the element's bounds (smallest rectangle which completely contains the element); otherwise, mouse events are based on the visible portion of the canvas element.
---   * `trackMouseEnterExit` - Default `false`.  Generates a callback when the mouse enters or exits the canvas element.  For `canvas` and `text` types, the `frame` of the element defines the boundaries of the tracking area.
---   * `trackMouseDown`      - Default `false`.  Generates a callback when mouse button is clicked down while the cursor is within the canvas element.  For `canvas` and `text` types, the `frame` of the element defines the boundaries of the tracking area.
---   * `trackMouseUp`        - Default `false`.  Generates a callback when mouse button is released while the cursor is within the canvas element.  For `canvas` and `text` types, the `frame` of the element defines the boundaries of the tracking area.
---   * `trackMouseMove`      - Default `false`.  Generates a callback when the mouse cursor moves within the canvas element.  For `canvas` and `text` types, the `frame` of the element defines the boundaries of the tracking area.
---   * `transformation`      - Default `{ m11 = 1.0, m12 = 0.0, m21 = 0.0, m22 = 1.0, tX = 0.0, tY = 0.0 }`. Specifies a matrix transformation to apply to the element before displaying it.  Transformations may include rotation, translation, scaling, skewing, etc.
---   * `windingRule`         - Default "nonZero".  A string specifying the winding rule in effect for the canvas element. May be "nonZero" or "evenOdd".  The winding rule determines which portions of an element to fill. This setting will only have a visible effect on compound elements (built with the `build` action) or elements of type `segments` when the object is made from lines which cross.
---   * `withShadow`          - Default `false`. Specifies whether a shadow effect should be applied to the canvas element.  Ignored for the `text` type.
+---@field textLineBreak? "wordWrap"|"charWrap"|"clip"|"truncateHead"|"truncateTail"|"truncateMiddle"
+-- Default `27.0`.  Specifies the font size to use when displaying the `text` element type, if the text is specified as a string.  This field is ignored if the text is specified as an `hs.styledtext` object.
+---@field textSize? number
+-- Default `false`. If true, mouse events are based on the element's bounds (smallest rectangle which completely contains the element); otherwise, mouse events are based on the visible portion of the canvas element.
+--- @field trackMouseByBounds? boolean
+-- Default `false`.  Generates a callback when the mouse enters or exits the canvas element.  For `canvas` and `text` types, the `frame` of the element defines the boundaries of the tracking area.
+--- @field trackMouseEnterExit? boolean
+-- Default `false`.  Generates a callback when mouse button is clicked down while the cursor is within the canvas element.  For `canvas` and `text` types, the `frame` of the element defines the boundaries of the tracking area.
+--- @field trackMouseDown? boolean
+-- Default `false`.  Generates a callback when mouse button is released while the cursor is within the canvas element.  For `canvas` and `text` types, the `frame` of the element defines the boundaries of the tracking area.
+--- @field trackMouseUp? boolean
+-- Default `false`.  Generates a callback when the mouse cursor moves within the canvas element.  For `canvas` and `text` types, the `frame` of the element defines the boundaries of the tracking area.
+--- @field trackMouseMove? boolean
+-- Default `{ m11 = 1.0, m12 = 0.0, m21 = 0.0, m22 = 1.0, tX = 0.0, tY = 0.0 }`. Specifies a matrix transformation to apply to the element before displaying it.  Transformations may include rotation, translation, scaling, skewing, etc.
+--- @field transformation? { m11: number, m12: number, m22: number, tX: number, tY: number }
+-- Default "nonZero".  A string specifying the winding rule in effect for the canvas element. May be "nonZero" or "evenOdd".  The winding rule determines which portions of an element to fill. This setting will only have a visible effect on compound elements (built with the `build` action) or elements of type `segments` when the object is made from lines which cross.
+--- @field windingRule? string
+-- Default `false`. Specifies whether a shadow effect should be applied to the canvas element.  Ignored for the `text` type.
+--- @field withShadow? boolean
 
 -- A different approach to drawing in Hammerspoon
 --
@@ -249,6 +273,7 @@ function M:alpha(alpha, ...) end
 -- Notes:
 --  * You can also specify multiple elements in a table as an array, where each index in the table contains an element table, and use the array as a single argument to this method if this style works better in your code.
 --- @param element hs.canvas.attributes
+--- @param ... hs.canvas.attributes
 --- @return hs.canvas
 function M:appendElements(element, ...) end
 -- Assigns a new element to the canvas at the specified index.

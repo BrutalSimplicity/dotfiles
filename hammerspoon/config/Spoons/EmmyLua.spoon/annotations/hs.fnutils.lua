@@ -18,6 +18,7 @@ hs.fnutils = M
 --
 -- Notes:
 --  * table2 cannot be a sparse table, see [http://www.luafaq.org/gotchas.html#T6.4](http://www.luafaq.org/gotchas.html#T6.4)
+---@return table
 function M.concat(table1, table2, ...) end
 -- Determine if a table contains a given object
 --
@@ -276,6 +277,5 @@ function M.sortByKeyValues(table, fn, ...) end
 --  * Optional parameters `nMax` and `bPlain` are identified by their type -- if parameter 3 or 4 is a number or nil, it will be considered a value for `nMax`; if parameter 3 or 4 is a boolean value, it will be considered a value for `bPlain`.
 --  * Lua patterns are more flexible for pattern matching, but can also be slower if the split point is simple. See §6.4.1 of the _Lua_Reference_Manual_ at http://www.lua.org/manual/5.3/manual.html#6.4.1 for more information on Lua patterns.
 function M.split(sString, sSeparator, nMax, bPlain, ...) end
-
 
 return M
