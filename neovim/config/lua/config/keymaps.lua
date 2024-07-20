@@ -115,6 +115,23 @@ local keymaps = {
     end,
     desc = "Toggle OS Clipboard",
   },
+  {
+    "<leader>ut",
+    function()
+      vim.o.showtabline = vim.o.showtabline == 0 and 2 or 0
+    end,
+    desc = "Toggle OS Clipboard",
+  },
+  {
+    "<leader>ua",
+    function()
+      vim.g.nvim_completion_enabled = vim.g.nvim_completion_enabled == 1 and 0 or 1
+      local enabled = vim.g.nvim_completion_enabled == 1 and true or false
+      require("cmp").setup({ enabled = enabled })
+      vim.notify(string.format("Auto-completion %s", enabled and "on" or "off"))
+    end,
+    desc = "Toggle Auto-completion",
+  },
 }
 
 Keymap.process_spec(keymaps)
