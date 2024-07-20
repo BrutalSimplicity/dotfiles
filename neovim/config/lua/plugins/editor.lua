@@ -174,7 +174,12 @@ return {
   {
     "NeogitOrg/neogit",
     dependencies = {
-      "sindrets/diffview.nvim",
+      {
+        "sindrets/diffview.nvim",
+        keys = {
+          { "<leader>gd", "<cmd>DiffviewOpen<cr>", desc = "DiffView: Open" },
+        },
+      },
       "plenary.nvim",
       "telescope.nvim",
     },
