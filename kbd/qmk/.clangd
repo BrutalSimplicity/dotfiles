@@ -1,0 +1,12 @@
+CompileFlags:
+    Add:
+        [
+            -Wno-unknown-attributes,
+            -Wno-maybe-uninitialized,
+            -Wno-unknown-warning-option,
+            -ferror-limit=0,
+        ]
+    Remove: [-W*, -mcall-prologues, -m*]
+    Compiler: clang
+Diagnostics:
+    Suppress: [drv_unsupported_opt_for_target, unused-includes]

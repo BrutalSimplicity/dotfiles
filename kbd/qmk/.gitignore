@@ -1,0 +1,15 @@
+# Junk files
+*.bak
+*.swp
+*~
+.DS_Store
+._*
+
+# Firmware files
+*.hex
+*.bin
+*.uf2
+.cache
+qmk_firmware
+zsa_qmk_firmware
+compile_commands.json
