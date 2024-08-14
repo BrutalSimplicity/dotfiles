@@ -1,3 +1,33 @@
+local function harpoon_list(name)
+  local harpoon = require("harpoon")
+  local list_items = harpoon:list(name).items
+  local conf = require("telescope.config").values
+  local items = {}
+  for _, i in ipairs(list_items) do
+    items[#items + 1] = i.value
+  end
+
+  require("telescope.pickers")
+    .new({}, {
+      prompt_title = "Harpoon",
+      finder = require("telescope.finders").new_table({
+        results = items,
+      }),
+      previewer = conf.file_previewer({}),
+      sorter = conf.generic_sorter({}),
+    })
+    :find()
+end
+local find_files_no_ignore = function()
+  local action_state = require("telescope.actions.state")
+  local line = action_state.get_current_line()
+  LazyVim.pick("find_files", { no_ignore = true, default_text = line })()
+end
+local find_files_with_hidden = function()
+  local action_state = require("telescope.actions.state")
+  local line = action_state.get_current_line()
+  LazyVim.pick("find_files", { hidden = true, default_text = line })()
+end
 return {
   {
     "nvim-telescope/telescope.nvim",
@@ -46,6 +76,13 @@ return {
         end,
         desc = "Find Files (Buffer Dir)",
       },
+      {
+        "<leader>hf",
+        function()
+          harpoon_list()
+        end,
+        desc = "Harpoon: Find",
+      },
     },
     dependencies = {
       {
@@ -84,10 +121,22 @@ return {
           },
         },
       },
+      pickers = {
+        live_grep = {
+          mappings = {
+            i = {},
+          },
+        },
+      },
     },
     config = function(_, opts)
       require("telescope").setup(opts)
       require("telescope").load_extension("fzf")
+
+      -- Additional extensions
+      -- require("telescope").load_extension("harpoon")
+
+      -- frecency plugin should be last
       ---@diagnostic disable-next-line
       require("telescope-all-recent").setup({})
     end,

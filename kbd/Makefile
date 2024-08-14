@@ -5,3 +5,5 @@ install/qmk:
 setup/zsa:
 	qmk setup zsa/qmk_firmware -b firmware23
 
+setup/qmk:
+	qmk setup

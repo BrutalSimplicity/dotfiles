@@ -16,29 +16,72 @@ M = {}
 ---@field [2] string | function
 ---
 ---@class user.util.SetKeymapSpec : vim.keymap.set.Opts
----@field [1] (MapMode | MapMode[])?
+---@field [1] MapMode | MapMode[]
 ---@field [2] string
 ---@field [3] string | function
 ---
 ---@class user.util.DelKeymapShortSpec : vim.keymap.del.Opts
----@field [1] string
----@field [2] user.util.DelKeymapId
+---@field [1] user.util.DelKeymapId
+---@field [2] string
 ---
 ---@class user.util.DelKeymapSpec : vim.keymap.del.Opts
----@field [0] (MapMode | MapMode[])?
----@field [1] string
----@field [2] user.util.DelKeymapId
+---@field [1] user.util.DelKeymapId
+---@field [2] MapMode | MapMode[]
+---@field [3] string
+---
+---@class user.util.ToggleKeymapSpec
+---@field [1] user.util.ToggleKeymapId
+---@field [2] string
+---@field [3] lazyvim.Toggle
 
 ---@alias user.util.Keymap
 --- |user.util.SetKeymapSpec
 --- |user.util.SetKeymapShortSpec
 --- |user.util.DelKeymapSpec
 --- |user.util.DelKeymapShortSpec
+--- |user.util.ToggleKeymapSpec
 
 ---@alias user.util.KeymapSpec user.util.Keymap[]
 
 ---@class user.util.DelKeymapId
 M.DEL = {}
+---@class user.util.ToggleKeymapId
+M.TOGGLE = {}
+
+local function process_keymap(pos_args, kwd_args)
+  local fst = pos_args[1]
+  if pos_args[1] == M.DEL or pos_args[1] == M.TOGGLE then
+    table.remove(pos_args, 1)
+  end
+
+  -- Redirect toggle specs to LazyVim handler
+  if fst == M.TOGGLE then
+    require("lazyvim.util").toggle.map(unpack(pos_args))
+    return
+  end
+  -- Handle both vim.keymap.set and vim.keymap.del
+
+  -- Handle the optional mode positional argument. If we only have the 2
+  -- required arguments, then assume mode was left out and
+  -- default to "normal"
+  if #pos_args < 3 then
+    table.insert(pos_args, 1, "n")
+  end
+
+  local handler = vim.keymap.set
+  if fst ~= M.DEL then
+    -- Defaults silent to false, if not set
+    kwd_args.silent = kwd_args.silent ~= false
+  else
+    -- Remove the boolean flag to match the keymap.del parameters
+    handler = vim.keymap.del
+  end
+
+  -- Add keyword arguments into the last element of the position
+  -- to match the keymap.set functions parameters
+  pos_args[#pos_args + 1] = kwd_args
+  handler(unpack(pos_args))
+end
 
 -- Process keymap spec the same way lazy.nvim does (I think)
 ---@param spec user.util.KeymapSpec
@@ -54,30 +97,7 @@ function M.process_spec(spec)
         kwd_args[k] = v
       end
     end
-    -- Handle both vim.keymap.set and vim.keymap.del
-
-    -- Handle the optional mode positional argument. If we only have the 2
-    -- required arguments, then assume mode was left out and
-    -- default to "normal"
-    if #pos_args < 3 then
-      table.insert(pos_args, 1, "n")
-    end
-
-    local handler = vim.keymap.set
-    -- If the last argument is no the DEL identifier, then we know this is the set spec
-    if pos_args[#pos_args] ~= M.DEL then
-      -- Defaults silent to false, if not set
-      kwd_args.silent = kwd_args.silent ~= false
-    else
-      -- Remove the boolean flag to match the keymap.del parameters
-      pos_args[#pos_args] = nil
-      handler = vim.keymap.del
-    end
-
-    -- Add keyword arguments into the last element of the position
-    -- to match the keymap.set functions parameters
-    pos_args[#pos_args + 1] = kwd_args
-    handler(unpack(pos_args))
+    process_keymap(pos_args, kwd_args)
   end
 end
 

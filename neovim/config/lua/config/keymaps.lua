@@ -42,7 +42,7 @@ local keymaps = {
 
   -- Lazy operations
   -- Remap lazy.nvim console
-  { "<leader>l", Keymap.DEL },
+  { Keymap.DEL, "<leader>l" },
   { "<leader>ll", "<cmd>Lazy<cr>", desc = "Lazy" },
   { "<leader>lx", "<cmd>LazyExtras<cr>", desc = "LazyVim Extras" },
 
@@ -56,7 +56,7 @@ local keymaps = {
     desc = "Delete Buffer",
   },
   -- Remap alternate buffer
-  { "<leader>`", Keymap.DEL },
+  { Keymap.DEL, "<leader>`" },
   {
     "n",
     "<leader>;",
@@ -116,21 +116,31 @@ local keymaps = {
     desc = "Toggle OS Clipboard",
   },
   {
-    "<leader>ut",
-    function()
-      vim.o.showtabline = vim.o.showtabline == 0 and 2 or 0
-    end,
-    desc = "Toggle OS Clipboard",
+    Keymap.TOGGLE,
+    "<leader>uB",
+    {
+      name = "Bufferline",
+      get = function()
+        return vim.o.showtabline > 0 and true or false
+      end,
+      set = function(state)
+        vim.o.showtabline = state and 2 or 0
+      end,
+    },
   },
   {
+    Keymap.TOGGLE,
     "<leader>ua",
-    function()
-      vim.g.nvim_completion_enabled = vim.g.nvim_completion_enabled == 1 and 0 or 1
-      local enabled = vim.g.nvim_completion_enabled == 1 and true or false
-      require("cmp").setup({ enabled = enabled })
-      vim.notify(string.format("Auto-completion %s", enabled and "on" or "off"))
-    end,
-    desc = "Toggle Auto-completion",
+    {
+      name = "Auto-Completion",
+      get = function()
+        return vim.g.nvim_completion_enabled == 1 and true or false
+      end,
+      set = function(state)
+        vim.g.nvim_completion_enabled = state and 1 or 0
+        require("cmp").setup({ enabled = state })
+      end,
+    },
   },
 }
 

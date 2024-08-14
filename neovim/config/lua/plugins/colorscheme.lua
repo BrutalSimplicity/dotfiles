@@ -3,15 +3,8 @@ return {
   {
     "LazyVim/LazyVim",
     opts = {
-      colorscheme = "catppuccin-frappe",
+      -- colorscheme = "catppuccin-frappe",
     },
-  },
-  {
-    "navarasu/onedark.nvim",
-    config = function()
-      local onedark = require("onedark")
-      onedark.setup({})
-    end,
   },
   {
     "catppuccin/nvim",

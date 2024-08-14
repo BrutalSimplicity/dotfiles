@@ -20,6 +20,21 @@ local function yank_icon(bufnr)
 end
 
 return {
+  {
+    "which-key.nvim",
+    opts = {
+      spec = {
+        {
+          "<leader>l",
+          name = "+lazy",
+          group = "lazy",
+          icon = function()
+            return require("mini.icons").get("filetype", "lazy")
+          end,
+        },
+      },
+    },
+  },
   -- Neotree(LazyVim): file explorer
   {
     "nvim-neo-tree/neo-tree.nvim",
@@ -108,6 +123,23 @@ return {
 
   {
     "ThePrimeagen/harpoon",
+    dependencies = {
+      {
+        "which-key.nvim",
+        opts = {
+          spec = {
+            {
+              "<leader>h",
+              name = "+harpoon",
+              group = "harpoon",
+              icon = function()
+                return require("mini.icons").get("filetype", "harpoon")
+              end,
+            },
+          },
+        },
+      },
+    },
     keys = function()
       local keys = {
         {
@@ -126,12 +158,18 @@ return {
           desc = "Harpoon Quick Menu",
         },
         {
-          "<leader>yh",
+          "<m-h>",
           function()
-            local harpoon = require("harpoon")
-            harpoon.ui:toggle_quick_menu(harpoon:list("yeet"))
+            require("harpoon"):list():prev()
           end,
-          desc = "Harpoon Yeet Menu",
+          desc = "Harpoon: Prev File",
+        },
+        {
+          "<m-l>",
+          function()
+            require("harpoon"):list():next()
+          end,
+          desc = "Harpoon: Next File",
         },
       }
 

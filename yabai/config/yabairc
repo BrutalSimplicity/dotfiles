@@ -57,6 +57,7 @@ Calculator
 Activity Monitor
 Archive Utility
 Parallels Desktop
+Skitch
 EOF
 )"
 blacklist=$(printf '^(%s)$' "$blacklist" | tr '\n' '|')

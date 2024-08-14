@@ -9,6 +9,11 @@ return {
   -- Yeet: Send commands to tmux
   {
     "samharju/yeet.nvim",
+    dependencies = {
+      {
+        "ThePrimeagen/harpoon",
+      },
+    },
     cmd = "Yeet",
     keys = {
       {
@@ -56,6 +61,14 @@ return {
           require("yeet").execute()
         end,
         desc = "Yeet: Execute",
+      },
+      {
+        "<leader>yh",
+        function()
+          local harpoon = require("harpoon")
+          harpoon.ui:toggle_quick_menu(harpoon:list("yeet"))
+        end,
+        desc = "Harpoon Yeet Menu",
       },
     },
   },
