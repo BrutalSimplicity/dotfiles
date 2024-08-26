@@ -75,14 +75,6 @@ layer_name {
             bindings = <&mo>, <&rgb_ug_status_macro>;
         };
 
-        mt0: mod_tap_0 {
-            compatible = "zmk,behavior-hold-tap";
-            #binding-cells = <2>;
-            flavor = "tap-preferred";
-            tapping-term-ms = <180>;
-            bindings = <&kp>, <&kp>;
-        };
-
         lhs_tap: left_hand_layer_tap {
             compatible = "zmk,behavior-hold-tap";
             #binding-cells = <2>;
@@ -97,17 +89,53 @@ layer_name {
             flavor = "balanced";
             tapping-term-ms = <170>;
             quick-tap-ms = <170>;
+            require-prior-idle-ms = <125>;
+            bindings = <&kp>, <&kp>;
+
+            hold-trigger-key-positions = <RIGHT_HAND_KEYS THUMB_KEYS>;
+        };
+        lhmi: left_homerow_mod_index_finger {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            flavor = "balanced";
+            tapping-term-ms = <170>;
+            quick-tap-ms = <170>;
             bindings = <&kp>, <&kp>;
 
             hold-trigger-key-positions = <RIGHT_HAND_KEYS THUMB_KEYS>;
         };
 
-        lhm_slow: left_homerow_mod_slow {
+        lhmm: left_homerow_mod_middle_finger {
             compatible = "zmk,behavior-hold-tap";
             #binding-cells = <2>;
-            flavor = "balanced";
+            flavor = "tap-preferred";
             tapping-term-ms = <200>;
             quick-tap-ms = <200>;
+            require-prior-idle-ms = <125>;
+            bindings = <&kp>, <&kp>;
+
+            hold-trigger-key-positions = <RIGHT_HAND_KEYS THUMB_KEYS>;
+        };
+
+        lhmr: left_homerow_mod_ring_finger {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            flavor = "tap-preferred";
+            tapping-term-ms = <200>;
+            quick-tap-ms = <200>;
+            require-prior-idle-ms = <125>;
+            bindings = <&kp>, <&kp>;
+
+            hold-trigger-key-positions = <RIGHT_HAND_KEYS THUMB_KEYS>;
+        };
+
+        lhmp: left_homerow_mod_pinky_finger {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            flavor = "tap-preferred";
+            tapping-term-ms = <200>;
+            quick-tap-ms = <200>;
+            require-prior-idle-ms = <125>;
             bindings = <&kp>, <&kp>;
 
             hold-trigger-key-positions = <RIGHT_HAND_KEYS THUMB_KEYS>;
@@ -119,20 +147,63 @@ layer_name {
             flavor = "balanced";
             tapping-term-ms = <170>;
             quick-tap-ms = <170>;
+            require-prior-idle-ms = <125>;
+            bindings = <&kp>, <&kp>;
+
+            hold-trigger-key-positions = <LEFT_HAND_KEYS THUMB_KEYS>;
+        };
+        
+        rhmi: right_homerow_mod_index_finger {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            flavor = "balanced";
+            tapping-term-ms = <170>;
+            quick-tap-ms = <170>;
+            bindings = <&kp>, <&kp>;
+
+            hold-trigger-key-positions = <LEFT_HAND_KEYS THUMB_KEYS>;
+        };
+        
+        rhmm: right_homerow_mod_middle_finger {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            flavor = "tap-preferred";
+            tapping-term-ms = <200>;
+            quick-tap-ms = <200>;
+            require-prior-idle-ms = <125>;
+            bindings = <&kp>, <&kp>;
+
+            hold-trigger-key-positions = <LEFT_HAND_KEYS THUMB_KEYS>;
+        };
+        rhmr: right_homerow_mod_ring_finger {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            flavor = "tap-preferred";
+            tapping-term-ms = <200>;
+            quick-tap-ms = <200>;
+            require-prior-idle-ms = <125>;
+            bindings = <&kp>, <&kp>;
+
+            hold-trigger-key-positions = <LEFT_HAND_KEYS THUMB_KEYS>;
+        };
+        rhmp: right_homerow_mod_pinky_finger {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            flavor = "tap-preferred";
+            tapping-term-ms = <200>;
+            quick-tap-ms = <200>;
+            require-prior-idle-ms = <125>;
             bindings = <&kp>, <&kp>;
 
             hold-trigger-key-positions = <LEFT_HAND_KEYS THUMB_KEYS>;
         };
 
-        rhm_slow: right_homerow_mod_slow {
-            compatible = "zmk,behavior-hold-tap";
-            #binding-cells = <2>;
-            flavor = "balanced";
-            tapping-term-ms = <200>;
-            quick-tap-ms = <200>;
-            bindings = <&kp>, <&kp>;
-
-            hold-trigger-key-positions = <LEFT_HAND_KEYS THUMB_KEYS>;
+        msft: multi_shift {
+            compatible = "zmk,behavior-mod-morph";
+            #binding-cells = <0>;
+            label = "MULTI_SHIFT";
+            bindings = <&shift_capslock>, <&caps_word>;
+            mods = <(MOD_LSFT)>;
         };
 
         shift_capslock: shift_capslock {
@@ -141,6 +212,14 @@ layer_name {
             #binding-cells = <0>;
             tapping-term-ms = <200>;
             bindings = <&kp RIGHT_SHIFT>, <&kp CAPSLOCK>;
+        };
+
+        bspc: backspace {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            flavor = "tap-preferred";
+            tapping-term-ms = <200>;
+            bindings = <&kp>, <&backspace_delete>;
         };
 
         backspace_delete: backspace_delete {
@@ -198,9 +277,9 @@ layer_name {
 &none       &none                 &none                 &none         &none                                                                                                                           &none         &none         &none                  &none                          &none
 &none       &kp N1                &kp N2                &kp N3        &kp N4        &kp N5                                                                                                    &kp N6  &kp N7        &kp N8        &kp N9                 &kp N0                         &none
 &kp TAB     &kp Q                 &kp W                 &kp E         &kp R         &kp T                                                                                                     &kp Y   &kp U         &kp I         &kp O                  &kp P                          &none
-&mo 3       &lhm_slow LEFT_GUI A  &lhm_slow LEFT_ALT S  &lhm LCTRL D  &lhm LSHFT F  &kp G                                                                                                     &kp H   &rhm RSHFT J  &rhm RCTRL K  &rhm_slow RIGHT_ALT L  &rhm_slow RIGHT_GUI SEMICOLON  &caps_word
-&none       &kp Z                 &kp X                 &kp C         &kp V         &kp B   &kp ESC  &kp TAB    &none           &sk LC(LS(LEFT_ALT))  &sk LC(LA(LEFT_GUI))  &shift_capslock   &kp N   &kp M         &kp COMMA     &kp PERIOD             &kp SLASH                      &none
-&magic 5 0  &kp HOME              &kp END               &kp LEFT      &kp RIGHT             &mo 1    &kp ENTER  &kp LEFT_GUI    &kp LEFT_ALT          &backspace_delete     &lhs_tap 2 SPACE          &kp DOWN      &kp UP        &kp PAGE_DOWN          &kp PG_UP                      &none
+&mo 3       &lhmp LGUI A  &lhmr LALT S  &lhmm LCTRL D  &lhmi LSHFT F  &kp G                                                                                                     &kp H   &rhm RSHFT J  &rhmi RCTRL K  &rhmr RIGHT_ALT L  &rhmp RIGHT_GUI SEMICOLON  &kp SQT
+&none       &kp Z                 &kp X                 &kp C         &kp V         &kp B   &kp ESC  &sk LC(LS(LALT)) &sk LC(LA(LGUI))           &none  &kp TAB &msft   &kp N   &kp M         &kp COMMA     &kp PERIOD             &kp SLASH                      &none
+&magic 5 0  &kp HOME              &kp END               &kp LEFT      &kp RIGHT             &mo 1    &mt LGUI ENTER  &none    &none          &bspc LALT 0   &lhs_tap 2 SPACE          &kp DOWN      &kp UP        &kp PAGE_DOWN          &kp PG_UP  &magic 5 0
             >;
         };
 
@@ -208,9 +287,9 @@ layer_name {
             bindings = <
 &none  &none     &none     &none      &none                                                                          &kp C_MUTE  &kp C_VOL_DN  &kp C_VOL_UP  &none      &kp PAUSE_BREAK
 &none  &none     &none     &none      &none      &none                                                    &none      &none       &none         &none         &none      &none
-&none  &none     &none     &none      &none      &none                                                    &kp CARET  &kp EQUAL   &kp STAR      &kp PLUS      &kp MINUS  &none
-&none  &kp LGUI  &kp LALT  &kp LCTRL  &kp LSHFT  &none                                                    &kp AMPS   &kp UNDER   &kp DQT       &kp SQT       &kp PIPE   &none
-&none  &none     &none     &none      &none      &none  &trans  &trans  &trans    &trans  &trans  &trans  &none      &kp COLON   &none         &none         &kp QMARK  &none
+&none  &none     &none     &none      &none      &none                                                    &kp CARET  &kp EQUAL   &kp LS(N8)      &kp LS(EQUAL)      &kp MINUS  &none
+&none  &kp LGUI  &kp LALT  &kp LCTRL  &kp LSHFT  &none                                                    &kp LS(N7)   &kp LS(MINUS)   &kp LS(SQT)       &kp SQT       &kp LS(BSLH)   &none
+&none  &none     &none     &none      &none      &none  &trans  &trans  &trans    &trans  &trans  &trans  &none      &kp LS(SEMICOLON)   &none         &none         &kp LS(SLASH)  &none
 &none  &none     &none     &none      &none             &trans  &trans  &trans    &trans  &trans  &trans             &none       &none         &none         &none      &none
             >;
         };
@@ -219,9 +298,9 @@ layer_name {
             bindings = <
 &none      &none     &none     &none     &none                                                                         &none      &none      &none     &none     &none
 &none      &none     &none     &none     &none     &none                                                        &none  &none      &none      &none     &none     &none
-&none      &kp EXCL  &kp AT    &kp HASH  &kp DLLR  &kp PRCNT                                                    &none  &none      &none      &none     &none     &none
-&kp GRAVE  &kp LBRC  &kp LPAR  &kp RPAR  &kp RBRC  &kp TILDE                                                    &none  &kp LSHFT  &kp LCTRL  &kp LALT  &kp LGUI  &none
-&none      &kp LBKT  &kp LT    &kp GT    &kp RBKT  &kp BSLH   &trans  &trans  &trans    &trans  &trans  &trans  &none  &none      &none      &none     &none     &none
+&none      &kp LS(N1)  &kp LS(N2)    &kp LS(N3)  &kp LS(N4)  &kp LS(N5)                                                    &none  &none      &none      &none     &none     &none
+&kp GRAVE  &kp LS(LBKT)  &kp LS(N9)  &kp LS(N0)  &kp LS(RBKT)  &kp LS(GRAVE)                                                    &none  &kp LSHFT  &kp LCTRL  &kp LALT  &kp LGUI  &none
+&none      &kp LBKT  &kp LS(COMMA)    &kp LS(DOT)    &kp RBKT  &kp BSLH   &trans  &trans  &trans    &trans  &trans  &trans  &none  &none      &none      &none     &none     &none
 &none      &none     &none     &none     &none                &trans  &trans  &trans    &trans  &trans  &trans         &none      &none      &none     &none     &none
             >;
         };
