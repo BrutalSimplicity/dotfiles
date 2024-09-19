@@ -225,6 +225,24 @@ layer_name {
             #binding-cells = <0>;
             mods = <(MOD_LSFT|MOD_RSFT)>;
         };
+
+        comma: comma {
+            compatible = "zmk,behavior-mod-morph";
+            label = "COMMA";
+            bindings = <&kp COMMA>, <&kp SQT>;
+
+            #binding-cells = <0>;
+            mods = <(MOD_LSFT|MOD_RSFT)>;
+        };
+
+        period: period {
+            compatible = "zmk,behavior-mod-morph";
+            label = "PERIOD";
+            bindings = <&kp PERIOD>, <&kp DQT>;
+
+            #binding-cells = <0>;
+            mods = <(MOD_LSFT|MOD_RSFT)>;
+        };
     };
 
     macros {
@@ -273,8 +291,8 @@ layer_name {
 &none       &kp N1        &kp N2        &kp N3         &kp N4         &kp N5                                                                                        &kp N6  &kp N7         &kp N8         &kp N9             &kp N0                     &none
 &kp TAB     &kp Q         &kp W         &kp E          &kp R          &kp T                                                                                         &kp Y   &kp U          &kp I          &kp O              &kp P                      &none
 &kp ESC     &lhmp LGUI A  &lhmr LALT S  &lhmm LCTRL D  &lhmi LSHFT F  &kp G                                                                                         &kp H   &rhmi RSHFT J  &rhmm RCTRL K  &rhmr RIGHT_ALT L  &rhmp RIGHT_GUI SEMICOLON  &caps_word
-&none       &kp Z         &kp X         &kp C          &kp V          &kp B   &mt LSHIFT ESC  &mt LCTRL TAB  &kp LALT    &kp RALT  &mt RCTRL TAB  &msft             &kp N   &kp M          &kp COMMA      &kp PERIOD         &kp SLASH                  &none
-&magic 5 0  &kp HOME      &kp END       &kp LEFT       &kp RIGHT              &mo 1           &kp ENTER      &kp LGUI    &kp RGUI  &bspc          &lhs_tap 2 SPACE          &kp DOWN       &kp UP         &kp PAGE_DOWN      &kp PG_UP                  &magic 5 0
+&none       &kp Z         &kp X         &kp C          &kp V          &kp B   &mt LSHIFT ESC  &mt LCTRL TAB  &kp LALT    &kp RALT  &mt RCTRL TAB  &msft             &kp N   &kp M          &comma         &period            &kp SLASH                  &none
+&magic 5 0  &kp HOME      &kp END       &kp LEFT       &kp RIGHT              &mo 3           &kp ENTER      &kp LGUI    &kp RGUI  &bspc          &lhs_tap 2 SPACE          &kp DOWN       &kp UP         &kp PAGE_DOWN      &kp PG_UP                  &magic 5 0
             >;
         };
 
@@ -289,25 +307,25 @@ layer_name {
             >;
         };
 
-        left_hand {
+        symbols {
             bindings = <
-&none      &none     &none     &none     &none                                                                         &none      &none      &none     &none     &none
-&none      &none     &none     &none     &none     &none                                                        &none  &none      &none      &none     &none     &none
-&none      &kp EXCL  &kp AT    &kp HASH  &kp DLLR  &kp PRCNT                                                    &none  &none      &none      &none     &none     &none
-&kp GRAVE  &kp LBRC  &kp LPAR  &kp RPAR  &kp RBRC  &kp TILDE                                                    &none  &kp LSHFT  &kp LCTRL  &kp LALT  &kp LGUI  &none
-&none      &kp LBKT  &kp LT    &kp GT    &kp RBKT  &kp BSLH   &trans  &trans  &trans    &trans  &trans  &trans  &none  &none      &none      &none     &none     &none
-&none      &none     &none     &none     &none                &trans  &trans  &trans    &trans  &trans  &trans         &none      &none      &none     &none     &none
+&none      &none     &none     &none     &none                                                                             &none      &none         &none     &none      &none
+&none      &none     &none     &none     &none     &none                                                        &none      &none      &none         &none     &none      &none
+&none      &kp EXCL  &kp AT    &kp HASH  &kp DLLR  &kp PRCNT                                                    &kp CARET  &kp EQUAL  &kp ASTERISK  &kp PLUS  &kp MINUS  &none
+&kp GRAVE  &kp LBRC  &kp LPAR  &kp RPAR  &kp RBRC  &kp TILDE                                                    &kp AMPS   &kp UNDER  &kp DQT       &kp SQT   &kp PIPE   &none
+&none      &kp LBKT  &kp LT    &kp GT    &kp RBKT  &kp BSLH   &trans  &trans  &trans    &trans  &trans  &trans  &none      &kp COLON  &kp QMARK     &none     &none      &none
+&none      &none     &none     &none     &none                &trans  &trans  &trans    &trans  &trans  &trans             &none      &none         &none     &none      &none
             >;
         };
 
         numbers {
             bindings = <
-&none  &none         &none     &none      &none                                                                      &none      &none     &none     &none      &none
-&none  &none         &none     &none      &none      &none                                                &none      &kp EQUAL  &kp STAR  &kp PLUS  &none      &none
-&none  &none         &none     &none      &none      &none                                                &kp CARET  &kp N7     &kp N8    &kp N9    &kp MINUS  &none
-&none  &kp LEFT_GUI  &kp LALT  &kp LCTRL  &kp LSHFT  &none                                                &kp COMMA  &kp N4     &kp N5    &kp N6    &kp DOT    &none
-&none  &none         &none     &none      &none      &none  &none  &none  &none    &none  &none   &mo 4   &kp N0     &kp N1     &kp N2    &kp N3    &kp FSLH   &none
-&none  &none         &none     &none      &none             &none  &none  &none    &none  &trans  &trans             &kp UNDER  &none     &none     &none      &none
+&none  &none  &none  &none  &none                                                                          &none      &none     &none     &none      &none
+&none  &none  &none  &none  &none      &none                                                    &none      &kp EQUAL  &kp STAR  &kp PLUS  &none      &none
+&none  &none  &none  &none  &none      &none                                                    &kp CARET  &kp N7     &kp N8    &kp N9    &kp MINUS  &none
+&none  &none  &none  &none  &kp UNDER  &none                                                    &kp COMMA  &kp N4     &kp N5    &kp N6    &kp DOT    &none
+&none  &none  &none  &none  &none      &none  &trans  &trans  &trans    &trans  &trans  &mo 4   &kp N0     &kp N1     &kp N2    &kp N3    &kp FSLH   &none
+&none  &none  &none  &none  &none             &trans  &trans  &trans    &trans  &trans  &trans             &none      &none     &none     &none      &none
             >;
         };
 
