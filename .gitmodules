@@ -1,0 +1,3 @@
+[submodule "kbd/zmk/keyboards/glove80"]
+	path = kbd/zmk/keyboards/glove80
+	url = git@github.com:BrutalSimplicity/glove80-zmk-config.git
